@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>1.4.10 Momento Independiente Actividad Integradora. Optimización de la Distribución de Granos desde Colombia hacia Europa del Este</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #004680;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    section {
+      margin-bottom: 2.5rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #004680;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      color: #005a99;
+      margin-top: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    th {
+      background-color: #e6f2ff;
+    }
+    .costo-total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #0066cc;
+      margin-top: 1rem;
+    }
+    .analisis {
+      background-color: #f0f8ff;
+      padding: 1rem;
+      border-left: 4px solid #007acc;
+      margin: 1.5rem 0;
+    }
+    .chart-container {
+      margin: 1.5rem 0;
+      height: 300px;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #eee;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    @media (max-width: 768px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      th, td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+      }
+      td:before, th:before {
+        content: attr(data-label) ": ";
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>1.4.10 Momento Independiente Actividad Integradora<br>Optimización de la Distribución de Granos desde Colombia hacia Europa del Este</h1>
+  <p>Presentado por: Efraín Antonio Alfaro Díaz<br>Tecnología en Gestión de Datos – Ingeniería en Inteligencia Artificial y Ciencia de Datos</p>
+</header>
+
+<div class="container">
+
+  <section>
+    <h2>Introducción</h2>
+    <p>Este proyecto aplica técnicas de investigación de operaciones para optimizar la distribución de granos excedentes desde almacenes en Colombia hacia destinos en Europa del Este, bajo dos escenarios: oferta igual a demanda y oferta menor que demanda. El objetivo es minimizar los costos de transporte, garantizando eficiencia logística en contextos humanitarios.</p>
+  </section>
+
+  <section>
+    <h2>Escenario 1: Oferta Igual a Demanda (345,000 toneladas)</h2>
+
+    <h3>Oferta (Almacenes en Colombia)</h3>
+    <table>
+      <thead>
+        <tr><th>Almacén</th><th>Cantidad Disponible (ton)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Manizales</td><td>100,000</td></tr>
+        <tr><td>Pereira</td><td>150,000</td></tr>
+        <tr><td>Armenia</td><td>95,000</td></tr>
+        <tr><th>Total</th><th>345,000</th></tr>
+      </tbody>
+    </table>
+
+    <h3>Demanda (Destinos en Europa del Este)</h3>
+    <table>
+      <thead>
+        <tr><th>Destino</th><th>Cantidad Requerida (ton)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sarajevo</td><td>75,000</td></tr>
+        <tr><td>Ucrania</td><td>150,000</td></tr>
+        <tr><td>Polonia</td><td>120,000</td></tr>
+        <tr><th>Total</th><th>345,000</th></tr>
+      </tbody>
+    </table>
+
+    <h3>Costos de Transporte (USD/tonelada)</h3>
+    <table>
+      <thead>
+        <tr><th>Almacén → Destino</th><th>Sarajevo</th><th>Ucrania</th><th>Polonia</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Manizales</td><td>1,250</td><td>1,500</td><td>1,350</td></tr>
+        <tr><td>Pereira</td><td>1,300</td><td>1,000</td><td>1,150</td></tr>
+        <tr><td>Armenia</td><td>1,450</td><td>1,300</td><td>1,100</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Solución Óptima</h3>
+    <table>
+      <thead>
+        <tr><th>Ruta</th><th>Cantidad (ton)</th><th>Costo Unitario (USD)</th><th>Costo Total (USD)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Manizales → Sarajevo</td><td>75,000</td><td>1,250</td><td>93,750,000</td></tr>
+        <tr><td>Manizales → Polonia</td><td>25,000</td><td>1,350</td><td>33,750,000</td></tr>
+        <tr><td>Pereira → Ucrania</td><td>150,000</td><td>1,000</td><td>150,000,000</td></tr>
+        <tr><td>Armenia → Polonia</td><td>95,000</td><td>1,100</td><td>104,500,000</td></tr>
+        <tr><th colspan="3">Costo Total</th><th class="costo-total">$382,000,000</th></tr>
+      </tbody>
+    </table>
+
+    <div class="chart-container">
+      <canvas id="chart1"></canvas>
+    </div>
+
+    <div class="analisis">
+      <h3>Análisis</h3>
+      <ul>
+        <li>Ucrania recibe exclusivamente desde Pereira, la ruta más económica ($1,000/ton).</li>
+        <li>Sarajevo se abastece solo desde Manizales ($1,250/ton), su menor costo.</li>
+        <li>Polonia recibe desde Manizales y Armenia para aprovechar costos relativamente bajos.</li>
+        <li>Todas las ofertas y demandas se satisfacen completamente.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Escenario 2: Oferta Menor que Demanda (300,000 vs 345,000 toneladas)</h2>
+
+    <h3>Oferta Ajustada</h3>
+    <table>
+      <thead>
+        <tr><th>Almacén</th><th>Cantidad Disponible (ton)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Manizales</td><td>85,000</td></tr>
+        <tr><td>Pereira</td><td>130,000</td></tr>
+        <tr><td>Armenia</td><td>85,000</td></tr>
+        <tr><th>Total</th><th>300,000</th></tr>
+      </tbody>
+    </table>
+
+    <h3>Demanda (sin cambios)</h3>
+    <table>
+      <thead>
+        <tr><th>Destino</th><th>Cantidad Requerida (ton)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sarajevo</td><td>75,000</td></tr>
+        <tr><td>Ucrania</td><td>150,000</td></tr>
+        <tr><td>Polonia</td><td>120,000</td></tr>
+        <tr><th>Total</th><th>345,000</th></tr>
+      </tbody>
+    </table>
+
+    <h3>Solución Final (Priorización por costo)</h3>
+    <table>
+      <thead>
+        <tr><th>Ruta</th><th>Cantidad (ton)</th><th>Costo Unitario (USD)</th><th>Costo Total (USD)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pereira → Ucrania</td><td>130,000</td><td>1,000</td><td>130,000,000</td></tr>
+        <tr><td>Armenia → Polonia</td><td>85,000</td><td>1,100</td><td>93,500,000</td></tr>
+        <tr><td>Manizales → Sarajevo</td><td>75,000</td><td>1,250</td><td>93,750,000</td></tr>
+        <tr><td>Manizales → Polonia</td><td>10,000</td><td>1,350</td><td>13,500,000</td></tr>
+        <tr><th colspan="3">Costo Total</th><th class="costo-total">$330,750,000</th></tr>
+      </tbody>
+    </table>
+
+    <div class="chart-container">
+      <canvas id="chart2"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="chart3"></canvas>
+    </div>
+
+    <div class="analisis">
+      <h3>Análisis</h3>
+      <ul>
+        <li><strong>Sarajevo:</strong> 100% satisfecha (75,000 ton).</li>
+        <li><strong>Ucrania:</strong> 130,000 ton (86.7% satisfecha); 20,000 ton insatisfechas.</li>
+        <li><strong>Polonia:</strong> 95,000 ton (79.2% satisfecha); 25,000 ton insatisfechas.</li>
+        <li>Se priorizaron rutas con menor costo por tonelada.</li>
+        <li>Demanda insatisfecha total: 45,000 ton.</li>
+      </ul>
+    </div>
+
+    <h3>Estrategia Alternativa (Factores Cualitativos)</h3>
+    <p>En contextos reales, se podrían ajustar prioridades considerando:</p>
+    <ul>
+      <li><strong>Gravedad humanitaria:</strong> Ucrania podría tener mayor prioridad.</li>
+      <li><strong>Capacidad de almacenamiento y vida útil del grano.</strong></li>
+      <li>Esto podría justificar usar rutas más costosas (ej. Manizales → Ucrania a $1,500/ton).</li>
+    </ul>
+
+    <h3>Análisis de Sensibilidad</h3>
+    <ul>
+      <li><strong>+10% en costos:</strong> Costo total = $363,825,000 → misma asignación.</li>
+      <li><strong>-10% en costos:</strong> Costo total = $297,675,000 → misma asignación.</li>
+      <li>La solución es robusta ante fluctuaciones moderadas de costos.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusión</h2>
+    <p>Este proyecto demuestra cómo la investigación de operaciones permite optimizar cadenas de suministro en contextos críticos. La modelación matemática reduce costos operativos y maximiza el impacto humanitario al asignar eficientemente recursos limitados. La integración de análisis cuantitativo con pensamiento crítico es clave para decisiones logísticas estratégicas en entornos globales complejos.</p>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2025 Fundación Universitaria San Mateo – Tecnología en Gestión de Datos</p>
+  <p>Fuente: Documento “1.4.10 Momento Independiente Actividad Integradora” – Efraín Antonio Alfaro Díaz</p>
+</footer>
+
+<script>
+  // Gráfico 1: Distribución de envíos Escenario 1
+  const ctx1 = document.getElementById('chart1').getContext('2d');
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ['Manizales → Sarajevo', 'Manizales → Polonia', 'Pereira → Ucrania', 'Armenia → Polonia'],
+      datasets: [{
+        label: 'Toneladas enviadas (Escenario 1)',
+        data: [75000, 25000, 150000, 95000],
+        backgroundColor: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Asignación Óptima de Granos – Escenario 1 (Oferta = Demanda)'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return value / 1000 + 'k';
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // Gráfico 2: Distribución de envíos Escenario 2
+  const ctx2 = document.getElementById('chart2').getContext('2d');
+  new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ['Pereira → Ucrania', 'Armenia → Polonia', 'Manizales → Sarajevo', 'Manizales → Polonia'],
+      datasets: [{
+        label: 'Toneladas enviadas (Escenario 2)',
+        data: [130000, 85000, 75000, 10000],
+        backgroundColor: ['#e15759', '#76b7b2', '#4e79a7', '#f28e2b']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Asignación Óptima de Granos – Escenario 2 (Oferta < Demanda)'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return value / 1000 + 'k';
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // Gráfico 3: Porcentaje de demanda satisfecha – Escenario 2
+  const ctx3 = document.getElementById('chart3').getContext('2d');
+  new Chart(ctx3, {
+    type: 'pie',
+    data: {
+      labels: ['Sarajevo (100%)', 'Ucrania (86.7%)', 'Polonia (79.2%)'],
+      datasets: [{
+        data: [100, 86.7, 79.2],
+        backgroundColor: ['#4e79a7', '#e15759', '#76b7b2']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Porcentaje de Demanda Satisfecha – Escenario 2'
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
